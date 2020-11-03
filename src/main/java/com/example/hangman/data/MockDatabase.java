@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MockDatabase extends AbstractDatabase {
 
-    List<String> strings = new ArrayList<>(Arrays.asList(
+    private List<String> strings = new ArrayList<>(Arrays.asList(
         "camel",
         "eagle",
         "lion",
