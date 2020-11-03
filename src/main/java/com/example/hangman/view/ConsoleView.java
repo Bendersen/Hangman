@@ -1,12 +1,13 @@
 package com.example.hangman.view;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.apache.commons.collections4.ListUtils;
 import org.apache.commons.lang3.StringUtils;
+
+import com.example.hangman.game.GameData;
 
 public class ConsoleView extends AbstractView {
 
@@ -17,32 +18,46 @@ public class ConsoleView extends AbstractView {
     }
 
     @Override
-    public void showHiddenWord(final String word, final List<String> tries) {
-        final List<String> allCharacters = Arrays.asList(VALID_CHARACTERS);
+    public void showHiddenWord(final String word) {
+        System.out.println("Word: " + word);
+    }
 
-        final List<String> uncoveredCharacters = ListUtils.subtract(allCharacters, tries);
-
-        final String secret = word.chars().mapToObj(i -> {
-            final String letter = Character.toString((char) i);
-            if (uncoveredCharacters.contains(letter)) {
-                return "_";
-            } else {
-                return letter;
-            }
-        }).collect(Collectors.joining(" "));
-
-        System.out.println("Word: " + secret);
+    @Override
+    public void showWon(final String playerName) {
+        System.out.println("Player " + playerName + " won!!!");
     }
 
     @Override
     public void showTries(final List<String> tries) {
         final String triesInLine = StringUtils.join(tries, ", ");
-        System.out.println("Tries: " + triesInLine);
+        System.out.println(tries.size() + " Tries: " + triesInLine);
     }
 
     @Override
-    public String requestNextTry() {
-        return null;
+    public String requestNextTry(final List<String> tries) {
+
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String letter = StringUtils.EMPTY;
+        do {
+            System.out.print("Next letter: ");
+            try {
+                String line = reader.readLine();
+                if (StringUtils.isNotBlank(line)) {
+                    line = line.toLowerCase();
+                    if (StringUtils.containsOnly(line, StringUtils.join(GameData.VALID_CHARACTERS))) {
+                        letter = StringUtils.substring(line, 0, 1);
+                    }
+                }
+            } catch (final IOException e) {
+                e.printStackTrace();
+            }
+            if (tries.contains(letter) || StringUtils.isBlank(letter)) {
+                System.out.println("Please Try again.");
+                letter = StringUtils.EMPTY;
+            }
+        } while (StringUtils.isBlank(letter));
+
+        return letter;
     }
 
     @Override

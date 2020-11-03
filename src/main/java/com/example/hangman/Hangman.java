@@ -4,7 +4,7 @@ import com.example.hangman.controller.AbstractController;
 import com.example.hangman.controller.ComputerWordController;
 import com.example.hangman.controller.HumanGuessController;
 import com.example.hangman.data.Database;
-import com.example.hangman.data.GameData;
+import com.example.hangman.game.GameData;
 import com.example.hangman.data.MockDatabase;
 import com.example.hangman.view.ConsoleView;
 import com.example.hangman.view.View;

@@ -1,7 +1,7 @@
 package com.example.hangman.controller;
 
 import com.example.hangman.data.Database;
-import com.example.hangman.data.GameData;
+import com.example.hangman.game.GameData;
 import com.example.hangman.view.View;
 
 public abstract class AbstractController implements Controller {

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.example.hangman.data.Database;
-import com.example.hangman.data.GameData;
+import com.example.hangman.game.GameData;
 import com.example.hangman.view.View;
 
 public class ComputerWordController extends AbstractController {
@@ -24,6 +24,6 @@ public class ComputerWordController extends AbstractController {
     public void start() {
         final String randomWord = this.getRandomWord();
         this.getGameData().setWord(randomWord);
-        this.getView().showHiddenWord(this.getGameData().getWord(), this.getGameData().getMoves());
+        this.getView().showHiddenWord(this.getGameData().getObfuscatedWord());
     }
 }

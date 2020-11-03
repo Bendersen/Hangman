@@ -4,11 +4,13 @@ import java.util.List;
 
 public interface View {
 
-    void showHiddenWord(String word, List<String> tries);
+    void showHiddenWord(String word);
+
+    void showWon(String playerName);
 
     void showTries(List<String> tries);
 
-    String requestNextTry();
+    String requestNextTry(final List<String> tries);
 
     String requestWord();
 
